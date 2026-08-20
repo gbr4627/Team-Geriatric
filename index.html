@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#080a0d" />
+  <meta name="description" content="MarketPlay — financial news you can understand and experience." />
+  <title>MarketPlay</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="ambient a1"></div><div class="ambient a2"></div>
+  <main id="app" class="app-shell" aria-live="polite">
+    <section id="onboarding" class="screen onboarding active">
+      <div class="onboard-art" aria-hidden="true">
+        <div class="ticker-strip"><span>NASDAQ</span><b class="up">+1.42%</b><span>GBP/USD</span><b class="down">−0.31%</b><span>GOLD</span><b class="up">+0.64%</b></div>
+        <div class="brand-orbit"><div class="brand-mark">M<span>↗</span></div></div>
+      </div>
+      <div class="onboard-copy">
+        <div class="eyebrow">WELCOME TO MARKETPLAY</div>
+        <h1>Markets move fast.<br><em>Now you’ll know why.</em></h1>
+        <p>Understand today’s biggest financial stories in under two minutes—then test what you know.</p>
+        <button class="btn primary wide" data-action="onboard-next">Set up my feed <span>→</span></button>
+        <button class="text-btn" data-action="demo-feed">Preview as guest</button>
+      </div>
+    </section>
+
+    <section id="level-screen" class="screen setup-screen">
+      <header class="setup-head"><button class="icon-btn" data-action="onboard-back" aria-label="Back">←</button><span>1 of 2</span><button class="text-btn" data-action="demo-feed">Skip</button></header>
+      <div class="setup-body">
+        <div class="eyebrow red">PERSONALISE YOUR EXPERIENCE</div>
+        <h2>Where are you starting from?</h2>
+        <p>We’ll match the language, data and challenges to you. You can change this anytime.</p>
+        <div class="choice-stack" id="level-choices">
+          <button class="level-card selected" data-level="Beginner"><span class="level-icon">○</span><span><b>Beginner</b><small>I’m new to financial news</small></span><i>✓</i></button>
+          <button class="level-card" data-level="Intermediate"><span class="level-icon">◒</span><span><b>Intermediate</b><small>I understand the basics</small></span><i>✓</i></button>
+          <button class="level-card" data-level="Advanced"><span class="level-icon">●</span><span><b>Advanced</b><small>I regularly follow markets</small></span><i>✓</i></button>
+        </div>
+      </div>
+      <div class="sticky-action"><button class="btn primary wide" data-action="level-next">Continue <span>→</span></button></div>
+    </section>
+
+    <section id="interests-screen" class="screen setup-screen">
+      <header class="setup-head"><button class="icon-btn" data-action="interests-back" aria-label="Back">←</button><span>2 of 2</span><button class="text-btn" data-action="demo-feed">Skip</button></header>
+      <div class="setup-body">
+        <div class="eyebrow red">BUILD YOUR DAILY MIX</div>
+        <h2>What are you curious about?</h2>
+        <p>Choose at least three. We’ll still surface big stories outside your bubble.</p>
+        <div class="topic-grid" id="topic-grid">
+          <button class="topic selected"><span>◫</span>Companies & stocks<i>✓</i></button>
+          <button class="topic selected"><span>⌁</span>The economy<i>✓</i></button>
+          <button class="topic selected"><span>%</span>Interest rates<i>✓</i></button>
+          <button class="topic"><span>◉</span>Personal finance<i>✓</i></button>
+          <button class="topic"><span>⌘</span>Technology<i>✓</i></button>
+          <button class="topic"><span>₿</span>Cryptocurrency<i>✓</i></button>
+          <button class="topic"><span>◆</span>Commodities<i>✓</i></button>
+          <button class="topic"><span>↔</span>Currencies<i>✓</i></button>
+          <button class="topic"><span>◎</span>Global markets<i>✓</i></button>
+        </div>
+      </div>
+      <div class="sticky-action interest-action"><span id="topic-count">3 selected</span><button class="btn primary" data-action="finish-onboarding">Build my feed <span>→</span></button></div>
+    </section>
+
+    <section id="main-screen" class="screen main-screen">
+      <header class="topbar">
+        <button class="wordmark" data-nav="today">MARKET<span>PLAY</span></button>
+        <div class="top-actions"><button class="streak-pill" data-nav="progress">🔥 <b>7</b></button><button class="avatar" data-nav="profile">G</button></div>
+      </header>
+
+      <div id="today-view" class="tab-view active">
+        <div class="feed-heading"><div><p>THURSDAY, 20 AUG</p><h2>Your market briefing</h2></div><button class="round-btn" data-action="audio-toast" aria-label="Play daily briefing">▶</button></div>
+        <div class="feed-tabs"><button class="active">For you</button><button>Top stories</button><button>Following</button></div>
+        <div class="story-feed" id="story-feed"></div>
+      </div>
+
+      <div id="explore-view" class="tab-view">
+        <div class="page-title"><div><p class="eyebrow red">DISCOVER</p><h2>Explore the market</h2></div><div class="page-actions"><button class="icon-btn live-icon" data-action="open-live-market" aria-label="Open live market view">⌁</button><button class="icon-btn" data-action="open-calendar" aria-label="Open archive calendar">▦</button><button class="icon-btn" data-action="show-search" aria-label="Search">⌕</button></div></div>
+        <div class="search-wrap"><span>⌕</span><input id="search-input" aria-label="Search stories" placeholder="Search stories, companies, terms" /></div>
+        <button class="archive-banner" data-action="open-calendar"><div class="archive-date"><b>20</b><span>AUG</span></div><div><span>MARKET ARCHIVE</span><b>Revisit any market day</b><small>Stories and simulations saved daily from day one</small></div><i>→</i></button>
+        <div class="market-snapshot"><p>MARKET SNAPSHOT <span>LIVE · DEMO</span></p><div class="indices"><div><small>S&amp;P 500</small><b>5,642.12</b><span class="up">+0.84%</span></div><div><small>FTSE 100</small><b>8,274.90</b><span class="down">−0.18%</span></div><div><small>BTC/USD</small><b>$61,420</b><span class="up">+2.31%</span></div></div><svg class="mini-chart" viewBox="0 0 320 48"><path d="M0 37 C35 32 40 40 65 30 S105 26 126 20 S160 32 185 23 S220 20 240 10 S280 17 320 4"/></svg><button class="snapshot-link" data-action="open-live-market">Open interactive market view <span>→</span></button></div>
+        <h3 class="section-label">Browse by topic</h3>
+        <div class="explore-topics"><button><span class="topic-dot markets"></span>Markets<small>12 stories</small></button><button><span class="topic-dot economy"></span>Economy<small>8 stories</small></button><button><span class="topic-dot tech"></span>Technology<small>11 stories</small></button><button><span class="topic-dot crypto"></span>Crypto<small>6 stories</small></button></div>
+        <div class="section-row"><h3>Learning paths</h3><button>View all</button></div>
+        <div class="path-card"><div class="path-icon">%</div><div><b>How interest rates move the world</b><small>4 of 7 lessons · 18 min left</small><div class="thin-progress"><i style="width:57%"></i></div></div><span>→</span></div>
+        <div class="path-card"><div class="path-icon purple">↗</div><div><b>Reading company earnings</b><small>2 of 6 lessons · 24 min left</small><div class="thin-progress"><i style="width:33%"></i></div></div><span>→</span></div>
+      </div>
+
+      <div id="saved-view" class="tab-view">
+        <div class="page-title"><div><p class="eyebrow red">YOUR LIBRARY</p><h2>Saved</h2></div><button class="icon-btn" data-action="saved-menu">•••</button></div>
+        <div id="saved-content"></div>
+      </div>
+
+      <div id="progress-view" class="tab-view">
+        <div class="page-title"><div><p class="eyebrow red">YOUR MOMENTUM</p><h2>Progress</h2></div><div class="streak-pill big">🔥 <b>7 days</b></div></div>
+        <div class="week-card"><div class="week-head"><div><b>Keep it going, George</b><small>2 minutes today keeps your streak alive</small></div><span>3/5</span></div><div class="week-days"><div class="done"><i>✓</i><small>M</small></div><div class="done"><i>✓</i><small>T</small></div><div class="done"><i>✓</i><small>W</small></div><div class="today"><i>20</i><small>T</small></div><div><i></i><small>F</small></div><div><i></i><small>S</small></div><div><i></i><small>S</small></div></div></div>
+        <div class="stats-grid"><div><span>Stories explored</span><b>42</b><small class="up">↑ 12 this week</small></div><div><span>Simulations</span><b>9</b><small>Top 18% of learners</small></div></div>
+        <div class="section-row"><h3>Your attention</h3><button data-action="attention-info">How it works</button></div>
+        <div class="attention-card"><div class="donut"><div class="donut-hole"><b>42</b><small>stories</small></div></div><div class="legend"><span><i class="c1"></i>Economy <b>34%</b></span><span><i class="c2"></i>Companies <b>27%</b></span><span><i class="c3"></i>Markets <b>21%</b></span><span><i class="c4"></i>Other <b>18%</b></span></div></div>
+        <div class="section-row"><h3>Concept mastery</h3><button>See all</button></div>
+        <div class="mastery-list"><div><span>Inflation</span><div class="mastery-track"><i style="width:86%"></i></div><b>Strong</b></div><div><span>Interest rates</span><div class="mastery-track"><i style="width:68%"></i></div><b>Growing</b></div><div><span>Valuation</span><div class="mastery-track"><i style="width:38%"></i></div><b>Explore next</b></div></div>
+      </div>
+
+      <div id="profile-view" class="tab-view">
+        <div class="profile-head"><div class="profile-avatar">G<span>7</span></div><div><h2>George</h2><p>Learning markets since August</p></div><button class="icon-btn" data-action="settings">⚙</button></div>
+        <button class="premium-card" data-action="open-premium"><div><span>MARKETPLAY <b>PRO</b></span><h3>Go deeper. Learn faster.</h3><p>Unlimited AI, simulations and market context.</p><small>See what’s included →</small></div><div class="pro-orb">M↗</div></button>
+        <div class="profile-section"><h3>Your level</h3><button class="setting-row" data-action="change-level"><span class="setting-icon">◒</span><span><b id="profile-level">Beginner</b><small>Explanations matched to you</small></span><i>›</i></button></div>
+        <div class="profile-section"><h3>Your interests</h3><button class="setting-row"><span class="setting-icon">＋</span><span><b>3 topics followed</b><small>Companies, economy, interest rates</small></span><i>›</i></button></div>
+        <div class="profile-section"><h3>Learning</h3><button class="setting-row"><span class="setting-icon">◇</span><span><b>Achievements</b><small>6 badges unlocked</small></span><i>›</i></button><button class="setting-row"><span class="setting-icon">↺</span><span><b>Recently viewed</b><small>12 stories this week</small></span><i>›</i></button></div>
+        <div class="profile-section"><h3>Prototype states</h3><button class="setting-row" data-action="state-loading"><span class="setting-icon">◌</span><span><b>Loading</b><small>Latest facts are being checked</small></span><i>›</i></button><button class="setting-row" data-action="state-offline"><span class="setting-icon">⌁</span><span><b>Offline</b><small>Saved content remains available</small></span><i>›</i></button><button class="setting-row" data-action="state-error"><span class="setting-icon">!</span><span><b>Error</b><small>Safe retry with context preserved</small></span><i>›</i></button></div>
+        <p class="disclaimer">MarketPlay is an educational product, not financial advice.<br>All news and market data in this prototype is demonstration content.</p>
+      </div>
+
+      <nav class="bottom-nav" aria-label="Primary navigation">
+        <button class="active" data-nav="today"><span>⌂</span><small>Today</small></button>
+        <button data-nav="explore"><span>⌕</span><small>Explore</small></button>
+        <button data-nav="saved"><span>▱</span><small>Saved</small></button>
+        <button data-nav="progress"><span>◴</span><small>Progress</small></button>
+        <button data-nav="profile"><span>○</span><small>Profile</small></button>
+      </nav>
+    </section>
+
+    <section id="story-screen" class="screen overlay-screen story-screen">
+      <div class="story-top"><button class="close-btn" data-action="close-story">×</button><div class="story-progress" id="story-progress"></div><button class="icon-btn" data-action="story-audio">♬</button></div>
+      <div id="story-slides" class="story-slides"></div>
+      <div class="story-controls"><button data-action="prev-slide">←</button><span id="story-count">1 / 6</span><button data-action="next-slide">→</button></div>
+    </section>
+
+    <section id="ai-screen" class="screen overlay-screen ai-screen">
+      <header class="overlay-head"><button class="close-btn" data-action="close-ai">×</button><div><b>Ask MarketPlay</b><small><i></i> Grounded in this story</small></div><button class="icon-btn" data-action="ai-info">ⓘ</button></header>
+      <div class="ai-context"><span>STORY CONTEXT</span><b>Why rates stayed higher for longer</b><small>5 verified sources · Updated 8 min ago</small></div>
+      <div class="chat" id="chat"><div class="ai-bubble"><div class="ai-mark">M↗</div><p>What would you like to understand? I’ll keep it clear and use only this story’s verified sources.</p></div></div>
+      <div class="suggested"><button>Explain this more simply</button><button>Why did markets react?</button><button>Who could be affected?</button><button>Has this happened before?</button></div>
+      <form class="chat-input" id="chat-form"><input id="chat-question" aria-label="Ask a question" placeholder="Ask about this story…" autocomplete="off" /><button aria-label="Send">↑</button></form>
+    </section>
+
+    <section id="activity-screen" class="screen overlay-screen activity-screen">
+      <header class="overlay-head"><button class="close-btn" data-action="close-activity">×</button><div><b>Try it</b><small>2 decisions · about 60 sec</small></div><span class="activity-step">1 / 2</span></header>
+      <div class="activity-progress"><i></i></div>
+      <div id="activity-content"></div>
+    </section>
+
+    <section id="history-screen" class="screen overlay-screen history-screen">
+      <header class="overlay-head"><button class="close-btn" data-action="close-history">×</button><div><b>History Lab</b><small>September 2008 · Demo scenario</small></div><span class="history-badge">◷</span></header>
+      <div id="history-content"></div>
+    </section>
+
+    <section id="calendar-screen" class="screen overlay-screen calendar-screen">
+      <header class="overlay-head"><button class="close-btn" data-action="close-calendar">×</button><div><b>Market archive</b><small>Every story and simulation, by day</small></div><button class="icon-btn" data-action="calendar-info">ⓘ</button></header>
+      <div class="calendar-body">
+        <div class="archive-status"><i></i><div><b>Archive active since 1 August 2026</b><small>New daily events and simulations are stored automatically</small></div></div>
+        <div class="calendar-month-head"><button class="icon-btn" data-action="calendar-prev">‹</button><div><span>AUGUST</span><b>2026</b></div><button class="icon-btn disabled" aria-label="Next month">›</button></div>
+        <div class="weekday-row"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>
+        <div id="calendar-grid" class="calendar-grid"></div>
+        <div class="archive-legend"><span><i class="event-dot"></i>Stories</span><span><i class="sim-dot"></i>Simulations</span></div>
+        <div class="archive-day-head"><div><span id="archive-date-label">THURSDAY, 20 AUGUST</span><b id="archive-count">6 stories · 2 simulations</b></div><button class="filter-pill" data-action="archive-filter">All ▾</button></div>
+        <div id="archive-results" class="archive-results"></div>
+      </div>
+    </section>
+
+    <section id="investment-screen" class="screen overlay-screen investment-screen">
+      <header class="overlay-head"><button class="close-btn" data-action="close-investment">×</button><div><b>Investment simulation</b><small>Virtual £10,000 · Educational scenario</small></div><span class="investment-step">1 / 2</span></header>
+      <div class="investment-progress"><i></i></div>
+      <div id="investment-content"></div>
+    </section>
+
+    <section id="simulation-picker-screen" class="screen overlay-screen simulation-picker-screen">
+      <header class="overlay-head"><button class="close-btn" data-action="close-sim-picker">×</button><div><b>Choose your experience</b><small id="picker-level">Matched to your level</small></div><span class="picker-time">1–5 min</span></header>
+      <div class="picker-body">
+        <div class="picker-story"><span>CURRENT STORY</span><b>Rates stay higher as inflation proves stubborn</b><small>Explore the same event in two different ways</small></div>
+        <p class="eyebrow red">CHOOSE A MODE</p>
+        <button class="mode-card quick-mode" data-action="start-quick-sim"><div class="mode-visual"><span>A</span><span>B</span><i>?</i></div><div class="mode-copy"><span>QUICK DECISION · 1–2 MIN</span><h2>What would you do?</h2><p>Make two clear choices, see the trade-offs and learn the financial principle behind each.</p><div class="mode-tags"><i>Beginner friendly</i><i>2 decisions</i></div></div><b class="mode-arrow">→</b></button>
+        <button class="mode-card trade-mode" data-action="start-trading-sim"><div class="mode-visual"><svg viewBox="0 0 120 60"><path d="M0 47 L18 40 L32 44 L49 25 L68 32 L84 14 L102 20 L120 5"/></svg><i>↗</i></div><div class="mode-copy"><span id="trade-mode-label">GUIDED TRADING · 3–5 MIN</span><h2>Trade the market reaction</h2><p id="trade-mode-copy">Use a simplified order ticket, read the chart and manage risk as new information arrives.</p><div class="mode-tags"><i id="trade-level-tag">Adapted to your level</i><i>Virtual £10k</i></div></div><b class="mode-arrow">→</b></button>
+        <p class="picker-note">Both modes use virtual money and are educational—not personalised investment advice or real paper trading.</p>
+      </div>
+    </section>
+
+    <section id="trading-screen" class="screen overlay-screen trading-screen">
+      <header class="trade-header"><button class="close-btn" data-action="close-trading">×</button><div><b>MPX · MarketPlay Index</b><small><i></i> Simulated live market</small></div><button class="icon-btn" data-action="trading-help">?</button></header>
+      <div class="trade-status"><span id="trade-step-label">ROUND 1 OF 2</span><div><b id="trade-cash">£10,000</b><small>AVAILABLE CASH</small></div></div>
+      <div id="trading-content"></div>
+    </section>
+
+    <section id="live-market-screen" class="screen overlay-screen live-market-screen">
+      <header class="trade-header"><button class="close-btn" data-action="close-live-market">×</button><div><b>Market view</b><small><i></i> Live simulation · ticks every 3 sec</small></div><button class="icon-btn" data-action="market-info">ⓘ</button></header>
+      <div class="market-watch" id="market-watch"></div>
+      <div id="live-market-content"></div>
+    </section>
+
+    <section id="premium-screen" class="screen overlay-screen premium-screen">
+      <button class="close-btn premium-close" data-action="close-premium">×</button>
+      <div class="premium-hero"><div class="pro-logo">M<span>↗</span></div><span>MARKETPLAY PRO</span><h2>See the whole picture.</h2><p>Go beyond the headline with unlimited learning, context and simulations.</p></div>
+      <div class="billing-toggle"><button class="active">Yearly <span>Save 33%</span></button><button>Monthly</button></div>
+      <div class="plan-price"><div><sup>£</sup><b>4</b><span>.99<br><small>/ month</small></span></div><p>Billed £59.88 yearly</p></div>
+      <div class="feature-list"><div><span>∞</span><p><b>Unlimited stories + AI questions</b><small>Ask anything, anytime</small></p></div><div><span>◇</span><p><b>Deeper explanations</b><small>More nuance, data and competing views</small></p></div><div><span>↺</span><p><b>Full simulation library</b><small>Learn from pivotal moments in history</small></p></div><div><span>⌁</span><p><b>Advanced charts and context</b><small>See the forces moving the market</small></p></div></div>
+      <button class="btn primary wide" data-action="start-trial">Start 7-day free trial</button>
+      <button class="text-btn" data-action="close-premium">Continue with Free</button>
+      <small class="terms">Demo checkout — no payment will be taken. Cancel anytime.</small>
+    </section>
+
+    <section id="state-screen" class="screen overlay-screen state-screen">
+      <button class="close-btn state-close" data-action="close-state">×</button>
+      <div id="state-content"></div>
+    </section>
+
+    <div id="toast" class="toast" role="status"></div>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
