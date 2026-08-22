@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#080a0d" />
+  <meta name="theme-color" content="#fffaf5" />
   <meta name="description" content="MarketPlay — financial news you can understand and experience." />
   <title>MarketPlay</title>
   <link rel="stylesheet" href="styles.css" />
@@ -47,15 +47,15 @@
         <h2>What are you curious about?</h2>
         <p>Choose at least three. We’ll still surface big stories outside your bubble.</p>
         <div class="topic-grid" id="topic-grid">
-          <button class="topic selected"><span>◫</span>Companies & stocks<i>✓</i></button>
-          <button class="topic selected"><span>⌁</span>The economy<i>✓</i></button>
-          <button class="topic selected"><span>%</span>Interest rates<i>✓</i></button>
-          <button class="topic"><span>◉</span>Personal finance<i>✓</i></button>
-          <button class="topic"><span>⌘</span>Technology<i>✓</i></button>
-          <button class="topic"><span>₿</span>Cryptocurrency<i>✓</i></button>
-          <button class="topic"><span>◆</span>Commodities<i>✓</i></button>
-          <button class="topic"><span>↔</span>Currencies<i>✓</i></button>
-          <button class="topic"><span>◎</span>Global markets<i>✓</i></button>
+          <button class="topic selected" data-topic="Companies & stocks"><span>◫</span>Companies & stocks<i>✓</i></button>
+          <button class="topic selected" data-topic="The economy"><span>⌁</span>The economy<i>✓</i></button>
+          <button class="topic selected" data-topic="Interest rates"><span>%</span>Interest rates<i>✓</i></button>
+          <button class="topic" data-topic="Personal finance"><span>◉</span>Personal finance<i>✓</i></button>
+          <button class="topic" data-topic="Technology"><span>⌘</span>Technology<i>✓</i></button>
+          <button class="topic" data-topic="Cryptocurrency"><span>₿</span>Cryptocurrency<i>✓</i></button>
+          <button class="topic" data-topic="Commodities"><span>◆</span>Commodities<i>✓</i></button>
+          <button class="topic" data-topic="Currencies"><span>↔</span>Currencies<i>✓</i></button>
+          <button class="topic" data-topic="Global markets"><span>◎</span>Global markets<i>✓</i></button>
         </div>
       </div>
       <div class="sticky-action interest-action"><span id="topic-count">3 selected</span><button class="btn primary" data-action="finish-onboarding">Build my feed <span>→</span></button></div>
@@ -64,12 +64,12 @@
     <section id="main-screen" class="screen main-screen">
       <header class="topbar">
         <button class="wordmark" data-nav="today">MARKET<span>PLAY</span></button>
-        <div class="top-actions"><button class="streak-pill" data-nav="progress">🔥 <b>7</b></button><button class="avatar" data-nav="profile">G</button></div>
+        <div class="top-actions"><button class="streak-pill" data-nav="progress" aria-label="View your streak and leaderboard">♨ <b id="top-streak">7</b></button><button class="avatar" data-nav="profile" aria-label="Open profile">G</button></div>
       </header>
 
       <div id="today-view" class="tab-view active">
-        <div class="feed-heading"><div><p>THURSDAY, 20 AUG</p><h2>Your market briefing</h2></div><button class="round-btn" data-action="audio-toast" aria-label="Play daily briefing">▶</button></div>
-        <div class="feed-tabs"><button class="active">For you</button><button>Top stories</button><button>Following</button></div>
+        <div class="feed-heading"><div><p id="briefing-date">TODAY</p><h2>Latest market news</h2><small>Reporting, context and market impact.</small></div><div class="briefing-control"><span><b>2min Market Briefing</b><small>Personalised audio</small></span><button class="round-btn" data-action="audio-toast" aria-label="Play 2 minute Market Briefing">▶</button></div></div>
+        <div class="feed-tabs"><button class="active">For you</button><button>Top stories</button></div>
         <div class="story-feed" id="story-feed"></div>
       </div>
 
@@ -80,7 +80,7 @@
         <div class="market-snapshot"><p>MARKET SNAPSHOT <span>LIVE · DEMO</span></p><div class="indices"><div><small>S&amp;P 500</small><b>5,642.12</b><span class="up">+0.84%</span></div><div><small>FTSE 100</small><b>8,274.90</b><span class="down">−0.18%</span></div><div><small>BTC/USD</small><b>$61,420</b><span class="up">+2.31%</span></div></div><svg class="mini-chart" viewBox="0 0 320 48"><path d="M0 37 C35 32 40 40 65 30 S105 26 126 20 S160 32 185 23 S220 20 240 10 S280 17 320 4"/></svg><button class="snapshot-link" data-action="open-live-market">Open interactive market view <span>→</span></button></div>
         <h3 class="section-label">Browse by topic</h3>
         <div class="explore-topics"><button><span class="topic-dot markets"></span>Markets<small>12 stories</small></button><button><span class="topic-dot economy"></span>Economy<small>8 stories</small></button><button><span class="topic-dot tech"></span>Technology<small>11 stories</small></button><button><span class="topic-dot crypto"></span>Crypto<small>6 stories</small></button></div>
-        <div class="section-row"><h3>Learning paths</h3><button>View all</button></div>
+        <div class="section-row"><h3>Learning paths</h3><button data-action="view-learning-paths">View all →</button></div>
         <div class="path-card"><div class="path-icon">%</div><div><b>How interest rates move the world</b><small>4 of 7 lessons · 18 min left</small><div class="thin-progress"><i style="width:57%"></i></div></div><span>→</span></div>
         <div class="path-card"><div class="path-icon purple">↗</div><div><b>Reading company earnings</b><small>2 of 6 lessons · 24 min left</small><div class="thin-progress"><i style="width:33%"></i></div></div><span>→</span></div>
       </div>
@@ -90,62 +90,54 @@
         <div id="saved-content"></div>
       </div>
 
-      <div id="progress-view" class="tab-view">
-        <div class="page-title"><div><p class="eyebrow red">YOUR MOMENTUM</p><h2>Progress</h2></div><div class="streak-pill big">🔥 <b>7 days</b></div></div>
-        <div class="week-card"><div class="week-head"><div><b>Keep it going, George</b><small>2 minutes today keeps your streak alive</small></div><span>3/5</span></div><div class="week-days"><div class="done"><i>✓</i><small>M</small></div><div class="done"><i>✓</i><small>T</small></div><div class="done"><i>✓</i><small>W</small></div><div class="today"><i>20</i><small>T</small></div><div><i></i><small>F</small></div><div><i></i><small>S</small></div><div><i></i><small>S</small></div></div></div>
-        <div class="stats-grid"><div><span>Stories explored</span><b>42</b><small class="up">↑ 12 this week</small></div><div><span>Simulations</span><b>9</b><small>Top 18% of learners</small></div></div>
-        <div class="section-row"><h3>Your attention</h3><button data-action="attention-info">How it works</button></div>
-        <div class="attention-card"><div class="donut"><div class="donut-hole"><b>42</b><small>stories</small></div></div><div class="legend"><span><i class="c1"></i>Economy <b>34%</b></span><span><i class="c2"></i>Companies <b>27%</b></span><span><i class="c3"></i>Markets <b>21%</b></span><span><i class="c4"></i>Other <b>18%</b></span></div></div>
-        <div class="section-row"><h3>Concept mastery</h3><button>See all</button></div>
-        <div class="mastery-list"><div><span>Inflation</span><div class="mastery-track"><i style="width:86%"></i></div><b>Strong</b></div><div><span>Interest rates</span><div class="mastery-track"><i style="width:68%"></i></div><b>Growing</b></div><div><span>Valuation</span><div class="mastery-track"><i style="width:38%"></i></div><b>Explore next</b></div></div>
-      </div>
+      <div id="progress-view" class="tab-view"><div id="progress-content"></div></div>
 
       <div id="profile-view" class="tab-view">
-        <div class="profile-head"><div class="profile-avatar">G<span>7</span></div><div><h2>George</h2><p>Learning markets since August</p></div><button class="icon-btn" data-action="settings">⚙</button></div>
-        <button class="premium-card" data-action="open-premium"><div><span>MARKETPLAY <b>PRO</b></span><h3>Go deeper. Learn faster.</h3><p>Unlimited AI, simulations and market context.</p><small>See what’s included →</small></div><div class="pro-orb">M↗</div></button>
+        <div class="profile-head"><div class="profile-avatar">G<span id="profile-streak">7</span></div><div><h2>George</h2><p id="profile-since">Learning finance since August 2026</p></div><button class="icon-btn" data-action="settings" aria-label="Open settings">⚙</button></div>
+        <div id="profile-social-stats"></div>
         <div class="profile-section"><h3>Your level</h3><button class="setting-row" data-action="change-level"><span class="setting-icon">◒</span><span><b id="profile-level">Beginner</b><small>Explanations matched to you</small></span><i>›</i></button></div>
-        <div class="profile-section"><h3>Your interests</h3><button class="setting-row"><span class="setting-icon">＋</span><span><b>3 topics followed</b><small>Companies, economy, interest rates</small></span><i>›</i></button></div>
-        <div class="profile-section"><h3>Learning</h3><button class="setting-row"><span class="setting-icon">◇</span><span><b>Achievements</b><small>6 badges unlocked</small></span><i>›</i></button><button class="setting-row"><span class="setting-icon">↺</span><span><b>Recently viewed</b><small>12 stories this week</small></span><i>›</i></button></div>
+        <div class="profile-section"><h3>Your interests</h3><button class="setting-row" data-action="edit-interests"><span class="setting-icon">＋</span><span><b id="profile-topic-count">3 topics followed</b><small id="profile-topics">Companies & stocks, The economy, Interest rates</small></span><i>›</i></button></div>
+        <div class="profile-section"><h3>Learning</h3><button class="setting-row" data-action="show-achievements"><span class="setting-icon">◇</span><span><b>Achievements</b><small>6 badges unlocked</small></span><i>›</i></button><button class="setting-row" data-action="show-recent"><span class="setting-icon">↺</span><span><b>Recently viewed</b><small>12 stories this week</small></span><i>›</i></button></div>
         <div class="profile-section"><h3>Prototype states</h3><button class="setting-row" data-action="state-loading"><span class="setting-icon">◌</span><span><b>Loading</b><small>Latest facts are being checked</small></span><i>›</i></button><button class="setting-row" data-action="state-offline"><span class="setting-icon">⌁</span><span><b>Offline</b><small>Saved content remains available</small></span><i>›</i></button><button class="setting-row" data-action="state-error"><span class="setting-icon">!</span><span><b>Error</b><small>Safe retry with context preserved</small></span><i>›</i></button></div>
-        <p class="disclaimer">MarketPlay is an educational product, not financial advice.<br>All news and market data in this prototype is demonstration content.</p>
+        <p class="disclaimer">MarketPlay is an educational product, not financial advice.<br>Stories use recent primary-source events; market reactions and scores are illustrative.</p>
       </div>
 
       <nav class="bottom-nav" aria-label="Primary navigation">
-        <button class="active" data-nav="today"><span>⌂</span><small>Today</small></button>
+        <button class="active" data-nav="today"><span>▤</span><small>News</small></button>
         <button data-nav="explore"><span>⌕</span><small>Explore</small></button>
-        <button data-nav="saved"><span>▱</span><small>Saved</small></button>
-        <button data-nav="progress"><span>◴</span><small>Progress</small></button>
+        <button data-nav="saved"><span>♡</span><small>Saved</small></button>
+        <button data-nav="progress"><span>♜</span><small>Leaderboards</small></button>
         <button data-nav="profile"><span>○</span><small>Profile</small></button>
       </nav>
     </section>
 
     <section id="story-screen" class="screen overlay-screen story-screen">
-      <div class="story-top"><button class="close-btn" data-action="close-story">×</button><div class="story-progress" id="story-progress"></div><button class="icon-btn" data-action="story-audio">♬</button></div>
+      <div class="story-top"><button class="news-feed-shortcut" data-action="back-news" aria-label="Back to news feed">← News</button><div class="story-progress" id="story-progress"></div><button class="icon-btn" data-action="story-audio" aria-label="Play story narration">▶</button></div>
       <div id="story-slides" class="story-slides"></div>
-      <div class="story-controls"><button data-action="prev-slide">←</button><span id="story-count">1 / 6</span><button data-action="next-slide">→</button></div>
+      <div class="story-controls"><button data-action="prev-slide" aria-label="Previous story stage">←</button><span id="story-count">News event · 1 / 4</span><button data-action="next-slide" aria-label="Next story stage">→</button></div>
     </section>
 
     <section id="ai-screen" class="screen overlay-screen ai-screen">
-      <header class="overlay-head"><button class="close-btn" data-action="close-ai">×</button><div><b>Ask MarketPlay</b><small><i></i> Grounded in this story</small></div><button class="icon-btn" data-action="ai-info">ⓘ</button></header>
-      <div class="ai-context"><span>STORY CONTEXT</span><b>Why rates stayed higher for longer</b><small>5 verified sources · Updated 8 min ago</small></div>
+      <header class="overlay-head"><button class="close-btn" data-action="close-ai">×</button><div><b>Ask MarketPlay</b><small><i></i> Grounded in this story</small></div><button class="icon-btn" data-action="ai-info">ⓘ</button><button class="news-feed-shortcut" data-action="back-news">News</button></header>
+      <div class="ai-context"><span>CURRENT NEWS CONTEXT</span><b id="ai-context-title">Current market event</b><small id="ai-context-stage">Current stage included · Mock AI service</small></div>
       <div class="chat" id="chat"><div class="ai-bubble"><div class="ai-mark">M↗</div><p>What would you like to understand? I’ll keep it clear and use only this story’s verified sources.</p></div></div>
       <div class="suggested"><button>Explain this more simply</button><button>Why did markets react?</button><button>Who could be affected?</button><button>Has this happened before?</button></div>
       <form class="chat-input" id="chat-form"><input id="chat-question" aria-label="Ask a question" placeholder="Ask about this story…" autocomplete="off" /><button aria-label="Send">↑</button></form>
     </section>
 
     <section id="activity-screen" class="screen overlay-screen activity-screen">
-      <header class="overlay-head"><button class="close-btn" data-action="close-activity">×</button><div><b>Try it</b><small>2 decisions · about 60 sec</small></div><span class="activity-step">1 / 2</span></header>
+      <header class="overlay-head"><button class="close-btn" data-action="close-activity">×</button><div><b>Try it</b><small>2 decisions · about 60 sec</small></div><span class="activity-step">1 / 2</span><button class="news-feed-shortcut" data-action="back-news">News</button></header>
       <div class="activity-progress"><i></i></div>
       <div id="activity-content"></div>
     </section>
 
     <section id="history-screen" class="screen overlay-screen history-screen">
-      <header class="overlay-head"><button class="close-btn" data-action="close-history">×</button><div><b>History Lab</b><small>September 2008 · Demo scenario</small></div><span class="history-badge">◷</span></header>
+      <header class="overlay-head"><button class="close-btn" data-action="close-history">×</button><div><b>History Lab</b><small>September 2008 · Demo scenario</small></div><span class="history-badge">◷</span><button class="news-feed-shortcut" data-action="back-news">News</button></header>
       <div id="history-content"></div>
     </section>
 
     <section id="calendar-screen" class="screen overlay-screen calendar-screen">
-      <header class="overlay-head"><button class="close-btn" data-action="close-calendar">×</button><div><b>Market archive</b><small>Every story and simulation, by day</small></div><button class="icon-btn" data-action="calendar-info">ⓘ</button></header>
+      <header class="overlay-head"><button class="close-btn" data-action="close-calendar">×</button><div><b>Market archive</b><small>Every story and simulation, by day</small></div><button class="icon-btn" data-action="calendar-info">ⓘ</button><button class="news-feed-shortcut" data-action="back-news">News</button></header>
       <div class="calendar-body">
         <div class="archive-status"><i></i><div><b>Archive active since 1 August 2026</b><small>New daily events and simulations are stored automatically</small></div></div>
         <div class="calendar-month-head"><button class="icon-btn" data-action="calendar-prev">‹</button><div><span>AUGUST</span><b>2026</b></div><button class="icon-btn disabled" aria-label="Next month">›</button></div>
@@ -158,15 +150,15 @@
     </section>
 
     <section id="investment-screen" class="screen overlay-screen investment-screen">
-      <header class="overlay-head"><button class="close-btn" data-action="close-investment">×</button><div><b>Investment simulation</b><small>Virtual £10,000 · Educational scenario</small></div><span class="investment-step">1 / 2</span></header>
+      <header class="overlay-head"><button class="close-btn" data-action="close-investment">×</button><div><b>Investment simulation</b><small>Virtual £10,000 · Educational scenario</small></div><span class="investment-step">1 / 2</span><button class="news-feed-shortcut" data-action="back-news">News</button></header>
       <div class="investment-progress"><i></i></div>
       <div id="investment-content"></div>
     </section>
 
     <section id="simulation-picker-screen" class="screen overlay-screen simulation-picker-screen">
-      <header class="overlay-head"><button class="close-btn" data-action="close-sim-picker">×</button><div><b>Choose your experience</b><small id="picker-level">Matched to your level</small></div><span class="picker-time">1–5 min</span></header>
+      <header class="overlay-head"><button class="close-btn" data-action="close-sim-picker">×</button><div><b>Choose your experience</b><small id="picker-level">Matched to your level</small></div><span class="picker-time">1–5 min</span><button class="news-feed-shortcut" data-action="back-news">News</button></header>
       <div class="picker-body">
-        <div class="picker-story"><span>CURRENT STORY</span><b>Rates stay higher as inflation proves stubborn</b><small>Explore the same event in two different ways</small></div>
+        <div class="picker-story"><span>CURRENT STORY</span><b id="picker-story-title">Current market story</b><small id="picker-story-source">Explore the same event in two different ways</small></div>
         <p class="eyebrow red">CHOOSE A MODE</p>
         <button class="mode-card quick-mode" data-action="start-quick-sim"><div class="mode-visual"><span>A</span><span>B</span><i>?</i></div><div class="mode-copy"><span>QUICK DECISION · 1–2 MIN</span><h2>What would you do?</h2><p>Make two clear choices, see the trade-offs and learn the financial principle behind each.</p><div class="mode-tags"><i>Beginner friendly</i><i>2 decisions</i></div></div><b class="mode-arrow">→</b></button>
         <button class="mode-card trade-mode" data-action="start-trading-sim"><div class="mode-visual"><svg viewBox="0 0 120 60"><path d="M0 47 L18 40 L32 44 L49 25 L68 32 L84 14 L102 20 L120 5"/></svg><i>↗</i></div><div class="mode-copy"><span id="trade-mode-label">GUIDED TRADING · 3–5 MIN</span><h2>Trade the market reaction</h2><p id="trade-mode-copy">Use a simplified order ticket, read the chart and manage risk as new information arrives.</p><div class="mode-tags"><i id="trade-level-tag">Adapted to your level</i><i>Virtual £10k</i></div></div><b class="mode-arrow">→</b></button>
@@ -175,19 +167,19 @@
     </section>
 
     <section id="trading-screen" class="screen overlay-screen trading-screen">
-      <header class="trade-header"><button class="close-btn" data-action="close-trading">×</button><div><b>MPX · MarketPlay Index</b><small><i></i> Simulated live market</small></div><button class="icon-btn" data-action="trading-help">?</button></header>
+      <header class="trade-header"><button class="close-btn" data-action="close-trading">×</button><div><b>MPX · MarketPlay Index</b><small><i></i> Simulated live market</small></div><button class="icon-btn" data-action="trading-help">?</button><button class="news-feed-shortcut" data-action="back-news">News</button></header>
       <div class="trade-status"><span id="trade-step-label">ROUND 1 OF 2</span><div><b id="trade-cash">£10,000</b><small>AVAILABLE CASH</small></div></div>
       <div id="trading-content"></div>
     </section>
 
     <section id="live-market-screen" class="screen overlay-screen live-market-screen">
-      <header class="trade-header"><button class="close-btn" data-action="close-live-market">×</button><div><b>Market view</b><small><i></i> Live simulation · ticks every 3 sec</small></div><button class="icon-btn" data-action="market-info">ⓘ</button></header>
+      <header class="trade-header"><button class="close-btn" data-action="close-live-market">×</button><div><b>Market view</b><small><i></i> Event-window chart · simulated ticks</small></div><button class="icon-btn" data-action="market-info">ⓘ</button><button class="news-feed-shortcut" data-action="back-news">News</button></header>
       <div class="market-watch" id="market-watch"></div>
       <div id="live-market-content"></div>
     </section>
 
     <section id="premium-screen" class="screen overlay-screen premium-screen">
-      <button class="close-btn premium-close" data-action="close-premium">×</button>
+      <button class="close-btn premium-close" data-action="close-premium">×</button><button class="news-feed-shortcut standalone-news-shortcut" data-action="back-news">← News</button>
       <div class="premium-hero"><div class="pro-logo">M<span>↗</span></div><span>MARKETPLAY PRO</span><h2>See the whole picture.</h2><p>Go beyond the headline with unlimited learning, context and simulations.</p></div>
       <div class="billing-toggle"><button class="active">Yearly <span>Save 33%</span></button><button>Monthly</button></div>
       <div class="plan-price"><div><sup>£</sup><b>4</b><span>.99<br><small>/ month</small></span></div><p>Billed £59.88 yearly</p></div>
@@ -198,7 +190,7 @@
     </section>
 
     <section id="state-screen" class="screen overlay-screen state-screen">
-      <button class="close-btn state-close" data-action="close-state">×</button>
+      <button class="close-btn state-close" data-action="close-state">×</button><button class="news-feed-shortcut standalone-news-shortcut" data-action="back-news">← News</button>
       <div id="state-content"></div>
     </section>
 
